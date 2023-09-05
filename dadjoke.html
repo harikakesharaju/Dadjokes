@@ -1,0 +1,108 @@
+<html>
+    <head>
+    <meta character="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,200&display=swap" rel="stylesheet">
+<style>
+    body{
+        margin:0;
+        padding:0;
+         display:flex;
+        justify-content: center;
+        align-items: center;
+        background: lightpink;
+        font-family: monospace;
+    }
+    .container{
+        width:500px;
+        height:350px;
+        background:black;
+       text-align: center;
+        padding:30px;
+        border-radius: 15px;
+        color:white;
+        box-shadow:0 5px 10px rgba(0,0,0,.3);
+    }
+    h1{
+        margin:20px;
+    }
+    #joke{
+        font-weight: 100;
+        font-size: 25px;
+        margin:30px;
+        width:80%;
+        
+    }
+    #btnn{
+        width:150px;
+        background: rgba(255,255,255,.3);
+        color:white;
+        border:1px solid white;
+        border-radius: 5px;
+        margin:7px;
+        
+    }
+    #btnn:hover{
+        background: rgba(255,255,255,.5);
+        
+        box-shadow: 0 4px 5px rgba(255,255,255,.4);
+        transition:all .3s ease;
+    }
+
+        </style>
+    </head>
+        <body>
+       <div class="container">
+            <h1 class="head1">Dads jokes .</h1>
+           <p class="joke" id="joke">this is a joke</p>
+           <button id="btnn">Get Joke</button>
+            
+            
+            </div> 
+        <script>
+            
+          const btn=document.getElementById("btnn")
+          const jokeid=document.getElementById("joke");
+          const apikey="htMzUE7xCsBMgs2xOMcn7w==qNRbpdpQD1lFj7PI";
+  
+            const options={
+            method:"GET",
+            headers:{
+                "X-Api-Key":apikey,
+            },
+        };
+         const apiurl="https://api.api-ninjas.com/v1/dadjokes?limit=1"
+            
+          async function getjoke(){
+              try{
+                  jokeid.innerHTML="updating";
+              btnn.disabled=true;
+              btnn.innerText="Loading";
+              const response= await fetch(apiurl,options);
+              const data=await response.json();
+              jokeid.innerHTML=data[0].joke;
+              btnn.disabled=false;
+              btnn.innerText="Get Joke"; 
+              }
+              catch(error){
+                  jokeid.innerText="an error happened..try again later";
+                  console.log(error);
+                  btnn.disabled=false;
+              btnn.innerText="Get Joke"; 
+          }
+          }
+          
+          btn.addEventListener("click",getjoke);
+            
+            
+            
+            
+            </script>
+        
+        </body>
+</html>
